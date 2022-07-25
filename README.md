@@ -1,6 +1,6 @@
 # jsonarray
 GORM JSON Array Types
 
-## Thanks To
+## Thanks
 
 - https://github.com/go-gorm/datatypes
