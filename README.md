@@ -13,6 +13,22 @@ GORM JSON Array Types
 go get github.com/brokeyourbike/jsonarray
 ```
 
+## Usage
+
+```go
+package main
+
+import (
+    "github.com/brokeyourbike/jsonarray"
+    "gorm.io/gorm"
+)
+
+type User struct {
+    gorm.Model
+    Tags jsonarray.JSONArray[string]
+}
+```
+
 ## Authors
 - [Ivan Stasiuk](https://github.com/brokeyourbike) | [Twitter](https://twitter.com/brokeyourbike) | [stasi.uk](https://stasi.uk)
 
