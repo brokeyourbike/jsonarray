@@ -1,0 +1,23 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.238.0/containers/go
+{
+    "name": "jsonarray",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "settings": { 
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go"
+            },
+            "extensions": [
+                "golang.Go",
+                "wayou.vscode-todo-highlight",
+                "GitHub.copilot"
+            ]
+        }
+    }
+}
