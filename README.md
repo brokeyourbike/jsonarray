@@ -19,3 +19,4 @@ go get github.com/brokeyourbike/jsonarray
 ## Thanks
 
 - https://github.com/go-gorm/datatypes
+- https://go.dev/blog/go1.18
