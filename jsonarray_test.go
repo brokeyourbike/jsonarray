@@ -64,6 +64,9 @@ func TestSlice(t *testing.T) {
 	}, {
 		Name: "json-2",
 		Tags: jsonarray.Slice[int]([]int{3, 4, 5}),
+	}, {
+		Name: "json-3",
+		Tags: jsonarray.Slice[int]{},
 	}}
 	assert.NoError(t, DB.Create(&users).Error)
 

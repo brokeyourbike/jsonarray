@@ -69,7 +69,7 @@ func (m *Slice[T]) UnmarshalJSON(b []byte) error {
 
 	err := json.Unmarshal(b, &t)
 	if err != nil {
-		return fmt.Errorf("failed to unmarshal JSONB value: %w", err)
+		return fmt.Errorf("failed to unmarshal JSON value: %w", err)
 	}
 
 	*m = Slice[T](t)
