@@ -3,7 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/brokeyourbike/jsonarray.svg)](https://pkg.go.dev/github.com/brokeyourbike/jsonarray)
 [![Go Report Card](https://goreportcard.com/badge/github.com/brokeyourbike/jsonarray)](https://goreportcard.com/report/github.com/brokeyourbike/jsonarray)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2e5b535a4edce1a5f803/maintainability)](https://codeclimate.com/github/brokeyourbike/jsonarray/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/2e5b535a4edce1a5f803/test_coverage)](https://codeclimate.com/github/brokeyourbike/jsonarray/test_coverage)
+[![codecov](https://codecov.io/gh/brokeyourbike/jsonarray/branch/main/graph/badge.svg?token=20MwbA3eAn)](https://codecov.io/gh/brokeyourbike/jsonarray)
 
 GORM JSON Array Types
 
