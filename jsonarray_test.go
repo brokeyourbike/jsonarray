@@ -4,10 +4,12 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/brokeyourbike/jsonarray"
 	"github.com/stretchr/testify/assert"
+	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -24,11 +26,15 @@ func init() {
 }
 
 func openTestConnection() (db *gorm.DB, err error) {
+	dsn := os.Getenv("GORM_DSN")
 	dialect := os.Getenv("GORM_DIALECT")
 
+	log.Printf("testing %s...", strings.ToLower(dsn))
+
 	switch dialect {
+	case "mysql":
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	default:
-		log.Println("testing sqlite3...")
 		db, err = gorm.Open(sqlite.Open(filepath.Join(os.TempDir(), "gorm.db")), &gorm.Config{})
 	}
 
