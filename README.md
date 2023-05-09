@@ -30,9 +30,12 @@ type User struct {
 ```
 
 ## Authors
-- [Ivan Stasiuk](https://github.com/brokeyourbike) | [Twitter](https://twitter.com/brokeyourbike) | [stasi.uk](https://stasi.uk)
+- [Ivan Stasiuk](https://github.com/brokeyourbike) | [Twitter](https://twitter.com/brokeyourbike) | [LinkedIn](https://www.linkedin.com/in/brokeyourbike) | [stasi.uk](https://stasi.uk)
 
 ## Thanks
 
 - https://github.com/go-gorm/datatypes
 - https://go.dev/blog/go1.18
+
+## License
+[MIT License](https://github.com/glocurrency/jsonarray/blob/main/LICENSE)
