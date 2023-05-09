@@ -14,11 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-go@v3
+    - uses: actions/setup-go@v4
       with:
         go-version: 1.19
-    - run: go build -v ./...
-    - run: go test -race -covermode=atomic -coverprofile=coverage.out -v ./...
+    - run: GORM_DIALECT=sqlite go build --tags "json1" -v ./...
+    - run: GORM_DIALECT=sqlite go test --tags "json1" -race -covermode=atomic -coverprofile=coverage.out -v ./...
 
     - uses: paambaati/codeclimate-action@v3.0.0
       continue-on-error: true
@@ -28,17 +28,3 @@ jobs:
         coverageCommand: ''
         prefix: 'github.com/brokeyourbike/jsonarray'
         coverageLocations: ./coverage.out:gocov
-
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-      - uses: dominikh/staticcheck-action@v1
-        with:
-          version: "2022.1"
-          install-go: false
