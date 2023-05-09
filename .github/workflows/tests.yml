@@ -20,14 +20,7 @@ jobs:
     - run: GORM_DIALECT=sqlite go build --tags "json1" -v ./...
     - run: GORM_DIALECT=sqlite go test --tags "json1" -race -covermode=atomic -coverprofile=coverage.out -v ./...
 
-    - uses: paambaati/codeclimate-action@v3.0.0
-      continue-on-error: true
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
-      with:
-        coverageCommand: ''
-        prefix: 'github.com/brokeyourbike/jsonarray'
-        coverageLocations: ./coverage.out:gocov
+    - uses: codecov/codecov-action@v3
 
   mysql:
     strategy:
@@ -61,11 +54,4 @@ jobs:
     - run: GORM_DIALECT=mysql GORM_DSN="gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True" go build -v ./...
     - run: GORM_DIALECT=mysql GORM_DSN="gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True" go test -race -covermode=atomic -coverprofile=coverage.out -v ./...
 
-    - uses: paambaati/codeclimate-action@v3.0.0
-      continue-on-error: true
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
-      with:
-        coverageCommand: ''
-        prefix: 'github.com/brokeyourbike/jsonarray'
-        coverageLocations: ./coverage.out:gocov
+    - uses: codecov/codecov-action@v3
