@@ -13,11 +13,11 @@ import (
 	"gorm.io/gorm/schema"
 )
 
-// JSONArray defined JSON data type, need to implements driver.Valuer, sql.Scanner interface
-type JSONArray[T any] []T
+// Slice defined JSON data type, need to implements driver.Valuer, sql.Scanner interface
+type Slice[T any] []T
 
 // Value return json value, implement driver.Valuer interface
-func (m JSONArray[T]) Value() (driver.Value, error) {
+func (m Slice[T]) Value() (driver.Value, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -26,9 +26,9 @@ func (m JSONArray[T]) Value() (driver.Value, error) {
 }
 
 // Scan scan value into Jsonb, implements sql.Scanner interface
-func (m *JSONArray[T]) Scan(val interface{}) error {
+func (m *Slice[T]) Scan(val interface{}) error {
 	if val == nil {
-		*m = make(JSONArray[T], 0)
+		*m = make(Slice[T], 0)
 		return nil
 	}
 	var ba []byte
@@ -49,7 +49,7 @@ func (m *JSONArray[T]) Scan(val interface{}) error {
 }
 
 // MarshalJSON to output non base64 encoded []byte
-func (m JSONArray[T]) MarshalJSON() ([]byte, error) {
+func (m Slice[T]) MarshalJSON() ([]byte, error) {
 	if m == nil {
 		return []byte("null"), nil
 	}
@@ -64,7 +64,7 @@ func (m JSONArray[T]) MarshalJSON() ([]byte, error) {
 }
 
 // UnmarshalJSON to deserialize []byte
-func (m *JSONArray[T]) UnmarshalJSON(b []byte) error {
+func (m *Slice[T]) UnmarshalJSON(b []byte) error {
 	t := []T{}
 
 	err := json.Unmarshal(b, &t)
@@ -72,17 +72,17 @@ func (m *JSONArray[T]) UnmarshalJSON(b []byte) error {
 		return fmt.Errorf("failed to unmarshal JSONB value: %w", err)
 	}
 
-	*m = JSONArray[T](t)
+	*m = Slice[T](t)
 	return nil
 }
 
 // GormDataType gorm common data type
-func (m JSONArray[T]) GormDataType() string {
+func (m Slice[T]) GormDataType() string {
 	return "jsonarray"
 }
 
 // GormDBDataType gorm db data type
-func (JSONArray[T]) GormDBDataType(db *gorm.DB, field *schema.Field) string {
+func (Slice[T]) GormDBDataType(db *gorm.DB, field *schema.Field) string {
 	switch db.Dialector.Name() {
 	case "sqlite":
 		return "JSON"
@@ -96,7 +96,7 @@ func (JSONArray[T]) GormDBDataType(db *gorm.DB, field *schema.Field) string {
 	return ""
 }
 
-func (m JSONArray[T]) GormValue(ctx context.Context, db *gorm.DB) clause.Expr {
+func (m Slice[T]) GormValue(ctx context.Context, db *gorm.DB) clause.Expr {
 	data, _ := m.MarshalJSON()
 	if db.Dialector.Name() == "mysql" {
 		if v, ok := db.Dialector.(*mysql.Dialector); ok && !strings.Contains(v.ServerVersion, "MariaDB") {
