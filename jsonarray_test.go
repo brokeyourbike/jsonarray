@@ -57,6 +57,7 @@ func TestSlice(t *testing.T) {
 	DB.Migrator().DropTable(&UserWithJSON{})
 	assert.NoError(t, DB.Migrator().AutoMigrate(&UserWithJSON{}))
 
+	// create
 	users := []UserWithJSON{{
 		Name: "json-1",
 		Tags: jsonarray.Slice[int]{1, 2},
@@ -66,10 +67,25 @@ func TestSlice(t *testing.T) {
 	}}
 	assert.NoError(t, DB.Create(&users).Error)
 
+	// select
 	var result UserWithJSON
 	assert.NoError(t, DB.First(&result, users[0].ID).Error)
 	assert.Equal(t, users[0].Name, result.Name)
 	assert.Equal(t, users[0].Tags[0], result.Tags[0])
+
+	// first or create
+	assign := UserWithJSON{
+		Tags: jsonarray.Slice[int]{8, 9},
+	}
+	assert.NoError(t, DB.Where(&UserWithJSON{Name: "json-1"}).Assign(assign).FirstOrCreate(&UserWithJSON{}).Error)
+
+	// update
+	update := UserWithJSON{
+		Tags: jsonarray.Slice[int]{7, 6},
+	}
+	var result3 UserWithJSON
+	result3.ID = 1
+	assert.NoError(t, DB.Model(&result3).Updates(update).Error)
 }
 
 func TestDummySlice(t *testing.T) {
