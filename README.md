@@ -25,7 +25,7 @@ import (
 
 type User struct {
     gorm.Model
-    Tags jsonarray.JSONArray[string]
+    Tags jsonarray.Slice[string]
 }
 ```
 
